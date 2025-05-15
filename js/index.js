@@ -3,6 +3,7 @@ const formSteps = document.querySelectorAll(".form-step");
 const progressSteps = document.querySelectorAll(".progress-step");
 
 let formStepsNum = 0;
+let percent = 0;
 let leaderboardInterval = null;
 
 function updateProgressbar() {
@@ -15,7 +16,7 @@ function updateProgressbar() {
             progressStep.classList.remove('progress-step-active')
         }
     })
-    progress.style.width = ((formStepsNum) / (progressSteps.length - 1)) * 100 + "%";
+    // progress.style.width = ((formStepsNum) / (progressSteps.length - 1)) * 100 + "%";
 }
 
 function timer(id) {
@@ -49,7 +50,7 @@ function startLoopingProgressbar() {
         if (step > 3) {
             clearInterval(stepInterval);
         }
-    }, 40000);
+    }, 60000);
 }
 
 function countTo2700(duration = 179000) {
@@ -91,7 +92,7 @@ function fadeIn(element) {
 
 async function fetchLeaderboard() {
     try {
-        const response = await fetch('https://grivy-barcode-stage.web.app/api/games/engagements/sessions/statistic/1f02fe68-9b5e-6c30-3457-cec157cc25a3', {
+        const response = await fetch('https://grivy.app/api/games/engagements/sessions/statistic/1f03174b-52b5-6a50-d7b4-4660bc88ad05', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -163,6 +164,16 @@ function switchToPage2() {
     // Start counting on page load
     formStepsNum = 0;
     updateProgressbar();
+
+    const progressBarInterval = setInterval(() => {
+        progress.style.width = percent + '%';
+        percent++;
+
+        if (percent > 100) {
+            clearInterval(progressBarInterval);
+        }
+    }, 180000 / 100);
+
     countTo2700();
     startLoopingProgressbar();
 
