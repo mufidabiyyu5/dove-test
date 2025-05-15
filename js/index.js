@@ -163,6 +163,7 @@ function switchToPage2() {
     fadeIn(page2);
     // Start counting on page load
     formStepsNum = 0;
+    percent = 0;
     updateProgressbar();
 
     const progressBarInterval = setInterval(() => {
