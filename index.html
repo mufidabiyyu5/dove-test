@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dove</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="d-flex">
+        <div class="d-block fade show" id="page-1" style="width: 100%;">
+            <video id="video-1" autoplay loop muted poster="">
+                <source src="./assets/Dove_game2_part1.mp4" type="video/mp4">
+            </video>
+            <span id="timer-1" class="timer">00 : 59</span>
+            <!-- <div class="d-flex justify-content-center" style="margin-bottom: 24px;">
+                <img src="./assets/dove-logo-2.png" alt="Dove" height="32px" class="mx-auto">
+            </div>
+            <div style="margin-bottom: 16px;">
+                <h1>Yuk bermain bersama Dove untuk lawan rambut rontok</h1>
+                <span class="countdown">Game starts in xx:xxx</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <img src="./assets/qr.png" alt="QR Code" height="100px" style="margin-right: 16px;">
+                <span class="text-qr">Scan untuk bermain. <br/>
+                    Dapatkan Dove Hair Tonic <br/>
+                    dengan harga special</span>
+            </div> -->
+        </div>
+        <div id="page-2" class="d-none fade">
+            <video id="video-2" autoplay loop muted poster="">
+                <source src="./assets/Dove_game2_part2.mp4" type="video/mp4">
+            </video>
+            <div class="sisi-kanan text-center" style="max-width: 437px;">
+                <!-- <div class="d-flex justify-content-center" style="margin-bottom: 24px;">
+                    <img src="./assets/dove-logo-2.png" alt="Dove" height="32px"> -->
+                    <!-- <img src="./assets/dove-logo-2.png" alt="Dove" height="48px"> -->
+                <!-- </div>
+                <h2 style="font-size: 20px;">Bantu dia Tumbuhkan +2700 Rambut Baru</h2> -->
+                <!-- <h2 style="font-size: 32px;">Bantu dia Tumbuhkan 2700 Rambut Baru</h2> -->
+                <div class="progressbar">
+                    <div class="progress" id="progress"></div>
+                    <div class="progress-step progress-step-active" data-title="Week 1"></div>
+                    <div class="progress-step" data-title="Week 2"></div>
+                    <div class="progress-step" data-title="Week 3"></div>
+                    <div class="progress-step" data-title="Week 4"></div>
+                </div>
+                <span id="counter"></span>
+                <div class="d-block justify-content-center align-items-center text-center" style="margin-top: 16px;">
+                    <div id="leaderboard" class="justify-content-center mx-auto" style="margin-bottom: 16px;">
+                        <ol id="list-leaderboard" class="text-start">
+                            <li>Player Name <span>500 Pumps</span></li>
+                            <li>Player Name <span>500 Pumps</span></li>
+                            <li>Player Name <span>500 Pumps</span></li>
+                            <li>Player Name <span>500 Pumps</span></li>
+                            <li>Player Name <span>500 Pumps</span></li>
+                        </ol>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center text-center">
+                        <img id="qr-code" alt="QR Code" height="72px" style="margin-right: 8px;">
+                        <span class="text-qr text-start">Scan untuk bermain. <br/>
+                            Dapatkan Dove Hair Tonic <br/>
+                            dengan harga special</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page-3" class="d-none align-items-center fade">
+            <video id="video-3" autoplay loop muted poster="">
+                <source src="./assets/Dove_game2_part3.mp4" type="video/mp4">
+            </video>
+            <span id="timer-3">01 : 00</span>
+            <!-- <video id="video-1" autoplay loop muted poster="">
+                <source src="./assets/dove_hair_15s_gen.mp4" type="video/mp4">
+            </video>
+            <div class="sisi-kanan text-center" style="width: 100%;">
+                <div class="d-flex justify-content-center" style="margin-bottom: 24px;">
+                    <img src="./assets/dove-logo-2.png" alt="Dove" height="32px" class="mx-auto">
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <h1>From Hair Fall to Hair Full</h1>
+                    <span class="countdown">+2700 Helai rambut dengan Dove</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                    <img src="./assets/qr.png" alt="QR Code" height="100px" style="margin-right: 16px;">
+                    <span class="text-qr text-start">Scan untuk bermain. <br/>
+                        Dapatkan Dove Hair Tonic <br/>
+                        dengan harga special</span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <script src="./js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous"></script>
+  </body>
+</html>

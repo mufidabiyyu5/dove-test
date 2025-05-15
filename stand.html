@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Face Detection</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  .container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+  }
+
+  video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    transition: opacity 1s ease;
+    opacity: 0;
+    z-index: 0;
+  }
+
+  .option-2 {
+    width: 91%;
+    height: 50%;
+    left: 4.5%;
+    top: 29.5%;
+    border-radius: 64px;
+    z-index: 2;
+    opacity: 1;
+    transition: all 1s ease;
+  }
+
+  #qr {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 2;
+    left: 15%;
+    top: 20%;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+  }
+
+  .visible {
+    opacity: 1 !important;
+    z-index: 1;
+  }
+
+  .hidden {
+    opacity: 0 !important;
+    z-index: 0;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <video id="video" autoplay muted playsinline></video>
+    <img id="qr" src="./assets/qr.png" alt="QR Code">
+    <video id="overlayVideo-1" src="./assets/dove_vertikal_A1.webm" autoplay muted loop class="visible"></video>
+    <video id="overlayVideo-2" src="./assets/dove_vertikal_B1.mp4" autoplay muted loop class="hidden"></video>
+    <video id="overlayVideo-3" src="./assets/dove_vertikal_Opsi_2.mp4" autoplay muted loop class="hidden"></video>
+    <canvas id="overlay" width="640" height="480"></canvas>
+  </div>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
+  <script defer>
+    const video = document.getElementById('video');
+    const params = new URLSearchParams(window.location.search);
+    const option = params.get('option');
+
+    function getCameraIdFromURL() {
+      return params.get('id');
+    }
+
+    async function setupCamera() {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices = devices.filter(device => device.kind === 'videoinput');
+      videoDevices.forEach(device => {
+        console.log(device.label, device.deviceId);
+      });
+
+      const cameraId = getCameraIdFromURL();
+      const constraints = {
+        video: {
+          deviceId: cameraId ? { exact: cameraId } : undefined
+        }
+      };
+
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      video.srcObject = stream;
+
+      return new Promise(resolve => {
+        video.onloadedmetadata = () => resolve();
+      });
+    }
+
+    async function startFaceDetection() {
+      const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
+
+      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+      await setupCamera();
+      detect();
+    }
+
+    function showVideo(id) {
+      const vids = ['overlayVideo-1', 'overlayVideo-2', 'overlayVideo-3'];
+      vids.forEach(vidId => {
+        const vid = document.getElementById(vidId);
+        if (vidId === id) {
+          vid.classList.remove('hidden');
+          vid.classList.add('visible');
+        } else {
+          vid.classList.remove('visible');
+          vid.classList.add('hidden');
+        }
+      });
+    }
+
+    let detectedPreviously = false;
+    let stage2Timeout = null;
+
+    async function detect() {
+      const canvas = document.getElementById('overlay');
+      const displaySize = { width: video.width, height: video.height };
+      faceapi.matchDimensions(canvas, displaySize);
+
+      setInterval(async () => {
+        const detections = await faceapi.detectAllFaces(
+          video,
+          new faceapi.TinyFaceDetectorOptions()
+        );
+
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (detections.length > 0 && !detectedPreviously) {
+          detectedPreviously = true;
+          console.log("Face detected");
+
+          // showVideo('overlayVideo-2');
+          // video.style.height = '67%';
+
+          stage2Timeout = setTimeout(() => {
+            showVideo('overlayVideo-3');
+            video.style.opacity = '0';
+            document.getElementById('qr').style.opacity = '1';
+          }, 2000);
+
+        } else if (detections.length === 0 && detectedPreviously) {
+          console.log("Face lost");
+
+          detectedPreviously = false;
+          clearTimeout(stage2Timeout);
+
+          if (option == '2') {
+            showVideo('overlayVideo-2');
+          } else {
+            showVideo('overlayVideo-1');
+          }
+
+          // video.style.height = '50%';
+          video.style.opacity = '1';
+          document.getElementById('qr').style.opacity = '0';
+        }
+      }, 300);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (option == '2') {
+        document.getElementById('overlayVideo-2').classList.add('visible');
+        document.getElementById('overlayVideo-1').classList.remove('visible');
+        document.getElementById('overlayVideo-1').classList.add('hidden');
+        document.getElementById('overlayVideo-2').classList.remove('hidden');
+        video.classList.add('option-2');
+      }
+
+      startFaceDetection();
+    });
+  </script>
+
+</body>
+</html>

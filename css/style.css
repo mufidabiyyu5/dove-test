@@ -1,0 +1,182 @@
+@font-face {
+    font-family: SofiaPro;
+    src: url(../fonts/Sofia\ Pro\ Regular\ Az.otf);
+}
+
+@font-face {
+    font-family: SofiaProBold;
+    src: url(../fonts/Sofia\ Pro\ Bold\ Az.otf);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
+    background-color: #fff;
+    font-family: SofiaPro, sans-serif;
+    color: #182955;
+}
+
+/* #video-2 {
+    height: 100vh;
+    width: 34.5%;
+    object-fit: fill;
+    left: 0;
+    top: 0;
+    z-index: 0;
+} */
+
+#page-1, #video-1, #video-2, #video-3 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.sisi-kanan {
+    position: absolute;
+    width: 437px;
+    /* margin: 120px; */
+    top: 37%;
+    left: 69.25%;
+    padding: 20px;
+    background-color: #fff;
+    z-index: 2;
+    /* margin: 150px; */
+	transform: scaleX(1.238) scaleY(1.938);
+    zoom: 80%;
+}
+
+h1 {
+    font-size: 24px !important;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 2.5px;
+}
+
+.countdown {
+    font-size: 16px;
+}
+
+.text-qr {
+    color: #858585;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.progressbar {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    counter-reset: step;
+    margin: 1rem 0 2rem;
+}
+.progressbar::before, .progress {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    background-color: #D9D9D9;
+    z-index: 1;
+}
+.progress {
+    background-color: #E6BC72 !important;
+    width: 0%;
+    height: 4px !important;
+    transition: 1s;
+    z-index: 1;
+}
+
+.progress-step {
+    width: 1.1875rem;
+    height: 1.1875rem;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.progress-step::before {
+    /* counter-increment: step;
+    content: counter(step); */
+}
+.progress-step::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100%);
+    font-size: 0.77rem;
+    width: max-content;
+    color: #182955;
+}
+.progress-step-active {
+    background-color: #fff;
+    border: 3px solid #E6BC72;
+    color: #182955;
+}
+
+#counter {
+    text-align: left;
+    font-size: 40px;
+    /* font-size: 48px; */
+    font-family: SofiaProBold;
+    line-height: normal;
+}
+
+#leaderboard {
+    width: fit-content;
+    padding: 12px;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+}
+
+#leaderboard ol {
+    margin: 0;
+    padding-left: 16px;
+}
+
+#leaderboard ol li { 
+    font-size: 14px !important;
+    /* font-size: 14px !important; */
+}
+
+.fade {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade.show {
+    opacity: 1;
+}
+
+#timer-1 {
+    position: absolute;
+    left: 89.5%;
+    top: 54.5%;
+    font-size: 24px;
+    font-family: SofiaPro, sans-serif;
+    background-color: transparent;
+    z-index: 2;
+	transform: scaleX(1.238) scaleY(1.938);
+}
+
+#timer-3 {
+    position: absolute;
+    left: 92.5%;
+    top: 76%;
+    font-size: 18px;
+    font-family: SofiaPro, sans-serif;
+    background-color: transparent;
+    z-index: 2;
+	transform: scaleX(1.238) scaleY(1.938);
+}
