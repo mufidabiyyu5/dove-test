@@ -63,7 +63,7 @@ function countTo2700(duration = 179000) {
         const progress = Math.min(elapsed / duration, 1);
         const currentCount = Math.floor(progress * endValue);
 
-        counterElement.innerHTML = currentCount + ` New Hair`;
+        counterElement.innerHTML = '+' + currentCount + ` New Hair`;
 
         if (progress < 1) {
             requestAnimationFrame(update);
