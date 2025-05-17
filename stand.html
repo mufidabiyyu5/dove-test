@@ -31,9 +31,9 @@
 
   .option-2 {
     width: 91%;
-    height: 50%;
+    height: 75%;
     left: 4.5%;
-    top: 29.5%;
+    top: 16%;
     border-radius: 64px;
     z-index: 2;
     opacity: 1;
@@ -42,10 +42,10 @@
 
   #qr {
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     z-index: 2;
-    left: 15%;
+    left: 30%;
     top: 20%;
     opacity: 0;
     transition: opacity 1s ease;
@@ -72,10 +72,10 @@
 <body>
   <div class="container">
     <video id="video" autoplay muted playsinline></video>
-    <img id="qr" src="./assets/qr.png" alt="QR Code">
-    <video id="overlayVideo-1" src="./assets/dove_vertikal_A1.webm" autoplay muted loop class="visible"></video>
-    <video id="overlayVideo-2" src="./assets/dove_vertikal_B1.mp4" autoplay muted loop class="hidden"></video>
-    <video id="overlayVideo-3" src="./assets/dove_vertikal_Opsi_2.mp4" autoplay muted loop class="hidden"></video>
+    <img id="qr" alt="QR Code">
+    <video id="overlayVideo-1" src="./assets/dove_vertikal_A1.webm" autoplay muted loop class="hidden"></video>
+    <video id="overlayVideo-2" src="./assets/vertikal_screen_LED_frame_1.webm" autoplay muted loop class="visible"></video>
+    <video id="overlayVideo-3" src="./assets/vertikal_screen_LED_frame_2.mp4" autoplay muted loop class="hidden"></video>
     <canvas id="overlay" width="640" height="480"></canvas>
   </div>
 
@@ -85,6 +85,8 @@
     const video = document.getElementById('video');
     const params = new URLSearchParams(window.location.search);
     const option = params.get('option');
+    const lokasi = params.get('location');
+    const qrImage = document.getElementById('qr');
 
     function getCameraIdFromURL() {
       return params.get('id');
@@ -170,7 +172,7 @@
           detectedPreviously = false;
           clearTimeout(stage2Timeout);
 
-          if (option == '2') {
+          if (option != '2') {
             showVideo('overlayVideo-2');
           } else {
             showVideo('overlayVideo-1');
@@ -185,16 +187,97 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       if (option == '2') {
-        document.getElementById('overlayVideo-2').classList.add('visible');
-        document.getElementById('overlayVideo-1').classList.remove('visible');
-        document.getElementById('overlayVideo-1').classList.add('hidden');
-        document.getElementById('overlayVideo-2').classList.remove('hidden');
-        video.classList.add('option-2');
+        document.getElementById('overlayVideo-1').classList.add('visible');
+        document.getElementById('overlayVideo-2').classList.remove('visible');
+        document.getElementById('overlayVideo-2').classList.add('hidden');
+        document.getElementById('overlayVideo-1').classList.remove('hidden');
+        // video.classList.add('option-2');
+      }
+
+      if (lokasi == '1') {
+        QRCode.toDataURL(`https://grivy.qrplanet.com/led-standee-pim`, {
+          color: {
+            dark: '#858585',
+            light: '#0000',
+          }
+        }, function (err, url) {
+        if (err) throw err;
+            qrImage.src = url;
+            // document.getElementById('qr-code-frame-3').src = url;
+        });
+      } else if (lokasi == '2') {
+        QRCode.toDataURL(`https://grivy.qrplanet.com/led-standee-taman-literasi`, {
+          color: {
+            dark: '#858585',
+            light: '#0000',
+          }
+        }, function (err, url) {
+        if (err) throw err;
+            qrImage.src = url;
+            // document.getElementById('qr-code-frame-3').src = url;
+        });
+      } else if(lokasi == '3') {
+        QRCode.toDataURL(`https://grivy.qrplanet.com/led-standee-taman-anggrek`, {
+          color: {
+            dark: '#858585',
+            light: '#0000',
+          }
+        }, function (err, url) {
+        if (err) throw err;
+            qrImage.src = url;
+            // document.getElementById('qr-code-frame-3').src = url;
+        });
+      } else if (lokasi == '4') {
+        QRCode.toDataURL(`https://grivy.qrplanet.com/led-standee-kuningan-city`, {
+          color: {
+            dark: '#858585',
+            light: '#0000',
+          }
+        }, function (err, url) {
+        if (err) throw err;
+            qrImage.src = url;
+            // document.getElementById('qr-code-frame-3').src = url;
+        });
+      } else if (lokasi == '5') {
+        QRCode.toDataURL(`https://grivy.qrplanet.com/led-standee-kemang-village`, {
+          color: {
+            dark: '#858585',
+            light: '#0000',
+          }
+        }, function (err, url) {
+        if (err) throw err;
+            qrImage.src = url;
+            // document.getElementById('qr-code-frame-3').src = url;
+        });
+      } else if (lokasi == '6') {
+        QRCode.toDataURL(`https://grivy.qrplanet.com/led-standee-bintaro-exchange`, {
+          color: {
+            dark: '#858585',
+            light: '#0000',
+          }
+        }, function (err, url) {
+        if (err) throw err;
+            qrImage.src = url;
+            // document.getElementById('qr-code-frame-3').src = url;
+        });
+      } else {
+        QRCode.toDataURL(`https://grivy.qrplanet.com/led-standee-pim`, {
+          color: {
+            dark: '#858585',
+            light: '#0000',
+          }
+        }, function (err, url) {
+        if (err) throw err;
+            qrImage.src = url;
+            // document.getElementById('qr-code-frame-3').src = url;
+        });
       }
 
       startFaceDetection();
     });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    
 
 </body>
 </html>
